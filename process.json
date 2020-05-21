@@ -1,0 +1,9 @@
+{
+  "apps": [
+    {
+      "name": "urbanice_node",
+      "script": "npm",
+      "args": "run dev"
+    }
+  ]
+}

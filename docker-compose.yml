@@ -1,0 +1,26 @@
+version: '3.7'
+
+services:
+  urbanice_node:
+    container_name: urbanice_node
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile.local
+    restart: always
+    ports:
+      - "5319:80"
+    volumes:
+      - .:/usr/src/app:cached
+      - ./.env.local:/usr/src/app/.env:cached
+      - ./docker/oauth/dev/oauth-public.key:/usr/src/app/storage/oauth-public.key:cached
+      - ./docker/oauth/dev/oauth-public.key:/usr/src/app/storage/oauth-public.test.key:cached
+      - /usr/src/app/node_modules
+    environment:
+      APP_ENV: local
+      NODE_ENV: local
+      HTTPS_METHOD: noredirect # support both http and https
+    networks:
+      network-horeca:
+networks:
+  network-horeca:
+    external: true
