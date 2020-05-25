@@ -5,7 +5,6 @@ import expressValidator from 'express-validator';
 import expressStatusMonitor from 'express-status-monitor';
 import path from 'path';
 import router from './routes/v1';
-import fs from'fs';
 //--- End of Include -----
 
 //--- Declare Variable ---

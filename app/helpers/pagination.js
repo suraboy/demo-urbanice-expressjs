@@ -18,7 +18,7 @@ exports.getFullUrl = (req) => {
 
 exports.getOptions = (req) => {
 
-    const notAllow = ['orderBy', 'sortedBy', 'page', 'limit',  'created_date', 'created_at', 'updated_date', 'updated_at', 'total'];
+    const notAllow = ['orderBy', 'sortedBy', 'page', 'limit',  'created_date', 'created_at', 'updated_date', 'updated_at', 'total','include'];
 
     const filtered = Object.keys(req.query)
         .filter(key => !notAllow.includes(key))
@@ -77,9 +77,10 @@ exports.getOptions = (req) => {
         const field = req.query.orderBy;
         const order = req.query.sortedBy || 'ASC';
         options.order.push([field, order]);
-    } else {
-        // default ordering (createdAt)
-        // findOptions.order.push(['created_at', 'DESC']);
+    }
+
+    if(req.query.include){
+        options['include'] = [req.query.include];
     }
 
     return options

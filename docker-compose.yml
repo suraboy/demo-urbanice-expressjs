@@ -21,6 +21,38 @@ services:
       HTTPS_METHOD: noredirect # support both http and https
     networks:
       network-horeca:
+  node-mariadb:
+    image: mariadb:10.4.3-bionic
+    container_name: node-mariadb
+    restart: always
+    ports:
+      - 5080:3306
+    volumes:
+      - /var/lib/mysql
+    networks:
+      network-horeca:
+        aliases:
+          - db
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    command:
+      - '--character-set-server=utf8mb4'
+      - '--collation-server=utf8mb4_unicode_ci'
+  node-pma:
+    image: phpmyadmin/phpmyadmin:5
+    container_name: node-pma
+    depends_on:
+      - node-mariadb
+    restart: always
+    ports:
+      - 5880:80
+    networks:
+      network-horeca:
+        aliases:
+          - phpmyadmin
+    environment:
+      PMA_HOST: node-mariadb
+      PMA_PORT: 3306
 networks:
   network-horeca:
     external: true

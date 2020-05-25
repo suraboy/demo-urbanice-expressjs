@@ -1,5 +1,5 @@
 import {buildCheckFunction} from 'express-validator/check';
-
+import mySqlDB from '../../database/sql';
 const body = buildCheckFunction(['body', 'query', 'params']);
 
 export default function formRequest(request) {
