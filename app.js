@@ -6,6 +6,8 @@ import expressStatusMonitor from 'express-status-monitor';
 import passportManager from './app/middleware/passport';
 import path from 'path';
 import router from './routes/v1';
+import fs from "fs";
+const jwt = require('jwt-simple');
 //--- End of Include -----
 
 //--- Declare Variable ---
@@ -53,6 +55,22 @@ app.get('/', (req, res) => res.send('Urbanice Expressjs API !!!'));
 app.use('/',router);
 
 app.use(passportManager.initialize());
+
+const loginMiddleWare = (req, res, next) => {
+    if (req.body.username === 'dev-test'
+        && req.body.password === '12345') next();
+    else res.status(401).send({'message': 'Wrong username and password'});
+};
+app.post("/v1/login", loginMiddleWare, (req, res) => {
+    const SecretOrKey = fs.readFileSync('./storage/' + 'oauth-private.key', 'utf8');
+    const payload = {
+        sub: req.body.username,
+        iat: new Date().getTime()
+    };
+    res.status(200).send({
+        'access_token': jwt.encode(payload,SecretOrKey,'RS256')
+    });
+});
 
 app.use((req, res, next) => {
     res.status(404);
