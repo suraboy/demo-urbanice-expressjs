@@ -20,7 +20,7 @@ services:
       NODE_ENV: local
       HTTPS_METHOD: noredirect # support both http and https
     networks:
-      network-horeca:
+      network-urbanice:
   node-mariadb:
     image: mariadb:10.4.3-bionic
     container_name: node-mariadb
@@ -30,7 +30,7 @@ services:
     volumes:
       - /var/lib/mysql
     networks:
-      network-horeca:
+      network-urbanice:
         aliases:
           - db
     environment:
@@ -47,12 +47,13 @@ services:
     ports:
       - 5880:80
     networks:
-      network-horeca:
+      network-urbanice:
         aliases:
           - phpmyadmin
     environment:
       PMA_HOST: node-mariadb
       PMA_PORT: 3306
 networks:
-  network-horeca:
-    external: true
+  network-urbanice:
+    external: false
+    name: network-urbanice

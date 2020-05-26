@@ -19,15 +19,15 @@ class GroupController{
             }
             const options = getOptions(req)
 
-            const docs = await models.Groups.findAll({include: ["contacts"]});
+            const {docs, pages, total} = await models.Groups.paginate(options);
 
-            // const count = Object.keys(docs).length;
+            const count = Object.keys(docs).length;
 
-            // let pagination = paginate(getFullUrl(req), count, pages, total, options.paginate, options.page)
+            let pagination = paginate(getFullUrl(req), count, pages, total, options.paginate, options.page)
 
             let response = {
                 data: docs,
-                // meta: pagination
+                meta: pagination
             }
             return res.status(200).send(response);
 

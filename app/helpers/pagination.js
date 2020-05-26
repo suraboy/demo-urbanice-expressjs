@@ -28,7 +28,7 @@ exports.getOptions = (req) => {
         }, {});
 
     let options = {
-        raw: true,
+        // raw: true,
         page:  parseInt(req.query.page) || 1, // Default 1
         paginate: parseInt(req.query.limit) || 15, // Default 15
         order: [],

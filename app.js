@@ -3,6 +3,7 @@ import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import expressValidator from 'express-validator';
 import expressStatusMonitor from 'express-status-monitor';
+import passportManager from './app/middleware/passport';
 import path from 'path';
 import router from './routes/v1';
 //--- End of Include -----
@@ -51,14 +52,14 @@ app.get('/', (req, res) => res.send('Urbanice Expressjs API !!!'));
 // Use Api routes in the App
 app.use('/',router);
 
+app.use(passportManager.initialize());
+
 app.use((req, res, next) => {
     res.status(404);
     // respond with html page
     if (req.accepts('html')) {
         return res.send({ url: `route ${req.url} not found` });
-
     }
-
     // respond with json
     if (req.accepts('json')) {
         return res.send({

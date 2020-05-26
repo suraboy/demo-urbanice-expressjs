@@ -21,10 +21,9 @@ class ContactController{
             const options = getOptions(req)
 
             const {docs, pages, total} = await models.Contacts.paginate(options);
-            // const docs = await models.Contacts.findAll({include: ["groups"]});
 
             const count = Object.keys(docs).length;
-            //
+
             let pagination = paginate(getFullUrl(req), count, pages, total, options.paginate, options.page)
 
             let response = {
