@@ -50,3 +50,11 @@ Open the browser
 http://localhost:5319
 ```
 
+Running Database
+------------------------------------
+Open the browser and create database name `urbanice`
+and run command sql in database/database.sql
+```bash
+http://localhost:5880/
+```
+
