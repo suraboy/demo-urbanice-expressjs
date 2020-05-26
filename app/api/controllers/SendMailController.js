@@ -38,7 +38,6 @@ class SendMailController {
         }
 
         sgMail.send(msg).then(m => {
-            console.log(m);
             return res.status(200).send({
                 'message': 'sent mail successfully'
             });
