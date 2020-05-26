@@ -17,7 +17,7 @@ class SendMailController {
             return res.status(422).json(response);
         }
 
-        sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+        sgMail.setApiKey('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');
 
         let params = req.body;
 
