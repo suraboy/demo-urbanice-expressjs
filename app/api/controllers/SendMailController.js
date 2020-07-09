@@ -17,7 +17,7 @@ class SendMailController {
             return res.status(422).json(response);
         }
 
-        sgMail.setApiKey('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');
+        sgMail.setApiKey('{{API-KEY}}');
 
         let params = req.body;
 
